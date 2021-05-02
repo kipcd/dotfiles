@@ -1,0 +1,77 @@
+#! /bin/sh
+
+bspc config remove_unplugged_monitors   true
+bspc config remove_disabled_monitors    true
+# bspc config merge_overlapping_monitors  true
+
+#bspc monitor -d I II III IV V VI VII VIII IX X
+#bspc monitor eDP-1-1 -d I II III IV V
+#bspc monitor DP-1 -d VI VII VIII IX X
+
+# /home/denis/.config/.screenlayout/xrandr-dual-screen.sh
+
+i=1
+n=$(bspc query -M | wc -l) # Count number of lines in bspwm's monitor list
+per=$(( 10 / n))           # Number of desktops per monitor
+# Declare desktops per monitor
+for monitor in $(bspc query -M); do
+    bspc monitor "$monitor" -d $(seq $i $((i + per - 1)))
+    # seq is end-inclusive; `seq 1 $((1+2))` returns "1 2 3"
+    i=$((i + per))
+done
+
+bspc config border_width         2
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc rule -a Gimp state=floating follow=on
+bspc rule -a firefox desktop='^7'
+bspc rule -a Chromium desktop='^8'
+# Selenium Chrome webdriver
+bspc rule -a Chromium-browser desktop='^8'
+bspc rule -a Emacs desktop='^6' state=fullscreen follow=on
+bspc rule -a Pavucontrol desktop='^5' follow=on
+bspc rule -a Slack desktop='^1' follow=on
+
+# A quote of the day one-shot rule
+bspc rule --add '*' --one-shot desktop='^1' state=floating rectangle=760x480+1145+55
+# Cow quote (the one-shot rule will be applied to it)
+alacritty --class cow --hold -e zsh -c 'fortune | cowsay' &
+
+# keymappings
+if ! pgrep sxhkd ; then
+sxhkd &
+fi
+
+# Set wallpaper with feh
+"$HOME"/.fehbg &
+
+if ! pgrep picom ; then
+picom -b &
+fi
+
+# Launch dropbox
+if ! pgrep dropbox ; then
+/usr/bin/dropbox &
+fi
+
+# Launch polybar status bar
+"$HOME"/.config/polybar/launch.sh
+
+# Try to start Emacs client 5 times, checking if Emacs daemon already started.
+# for (( i=0; i<5; i++)); do
+#     if systemctl --user is-active --quiet emacs; then
+#         emacsclient -nc -s instance1 &
+#         break
+#     else
+#         sleep 1;
+#     fi
+# done
+
+# Just start Emacs
+if ! pgrep emacs ; then
+    emacs &
+fi
