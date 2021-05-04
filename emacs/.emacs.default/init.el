@@ -493,9 +493,8 @@
   ;; Add assertj to the list of static import completions
   (setq lsp-java-completion-favorite-static-members
         (vconcat lsp-java-completion-favorite-static-members '("org.assertj.core.api.Assertions.*")))
-  ;; (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml")
-  (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/goxr3plus/IntelliJ-to-Eclipse-Formater/master/ECLIPSE-FORMATTER.xml")
-  (setq lsp-java-format-settings-profile "Eclipse [built-in]2")
+  (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml")
+  (setq lsp-java-format-settings-profile "GoogleStyle")
 
   ;; Performance improvements
   (setq lsp-java-completion-max-results 10)
