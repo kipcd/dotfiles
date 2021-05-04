@@ -127,11 +127,10 @@
   :config
   (evil-collection-init)
   :custom
-  (evil-collection-company-use-tng nil "Disable company-tng-mode. 
+  (evil-collection-company-use-tng nil "Disable company-tng-mode.
 This will disable auto-populating buffer with pre-selected suggestion.
 It was giving confusing results for lsp-mode and Java, as it was also outputting java package name
 in the buffer (although not actually inserting it after accepting the suggestion).")
-  (evil-collection-setup-minibuffer t "Evilify minibuffer")
   )
 
 ;; Better comments
