@@ -49,7 +49,7 @@
   :config
   (setq which-key-idle-delay 0.3)                          ;; Reduce the time before which-key pops up
   (setq which-key-sort-order 'which-key-key-order-alpha)   ;; Sort things properly alphabetical
-  (which-key-mode)) 
+  (which-key-mode))
 
 ;; Keybindings manager. Facilitates to maintain a personal global prefix for keybindings
 (use-package general
@@ -57,7 +57,7 @@
   :commands general-evil-setup
   :config
   ;; keys bound in general-override-mode-map will take precedence over keys bound in any other minor mode keymaps
-  (general-override-mode) 
+  (general-override-mode)
   (general-evil-setup)
   ;; define personal global prefix for keybindings - leader keys
   (general-create-definer kipcd/leader
@@ -99,8 +99,10 @@
 ;; Become evil
 (defun kipcd/evil-hook ()
   ;; Define modes to start in emacs state by default
-  (dolist (mode '(eshell-mode
-		  term-mode))
+  (dolist (mode '(
+                  eshell-mode
+                  term-mode
+                  ))
     (add-to-list 'evil-emacs-state-modes mode)))
 (use-package evil
   :init
