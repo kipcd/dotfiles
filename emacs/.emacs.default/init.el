@@ -2,6 +2,8 @@
 
 ;; Performance tweaks
 ;; Following lsp-mode performance guidelines
+
+;; Speed up the initialization reducing garbage collection runs.
 (setq gc-cons-threshold 100000000)
 (setq read-process-output-max (* 1024 1024 3)) ;; 3mb
 
