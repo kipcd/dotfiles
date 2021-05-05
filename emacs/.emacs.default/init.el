@@ -19,6 +19,9 @@
 ;; Answer 'yes' or 'no' questions with 'y' or 'n'
 (defalias 'yes-or-no-p #'y-or-n-p)
 
+;; Easy transition between buffers: M-arrow-keys.
+(windmove-default-keybindings 'meta)
+
 ;; Bind keyboard-escape-quit to ESC instead of ESC ESC ESC
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Set font and font size (130/100 = 13pt)
