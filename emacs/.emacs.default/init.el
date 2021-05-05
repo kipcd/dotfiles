@@ -5,6 +5,7 @@
 
 ;; Speed up the initialization reducing garbage collection runs.
 (setq gc-cons-threshold 100000000)
+;; Increase the amount of data which Emacs reads from the process.
 (setq read-process-output-max (* 1024 1024 3)) ;; 3mb
 
 (setq inhibit-startup-message t) ;; Hide welcome buffer
