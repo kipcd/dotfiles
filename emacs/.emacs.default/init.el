@@ -20,6 +20,16 @@
 ;; Answer 'yes' or 'no' questions with 'y' or 'n'
 (defalias 'yes-or-no-p #'y-or-n-p)
 
+(defun copy-file-name-to-clipboard ()
+  "Copy the current buffer file name to the clipboard."
+  (interactive)
+  (let ((filename (if (equal major-mode 'dired-mode)
+                      default-directory
+                    (buffer-file-name))))
+    (when filename
+      (kill-new filename)
+      (message "Copied buffer file name '%s' to the clipboard." filename))))
+
 ;; Easy transition between buffers: M-arrow-keys.
 (windmove-default-keybindings 'meta)
 
