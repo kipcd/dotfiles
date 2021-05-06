@@ -20,7 +20,8 @@
 ;; Answer 'yes' or 'no' questions with 'y' or 'n'
 (defalias 'yes-or-no-p #'y-or-n-p)
 
-(defun copy-file-name-to-clipboard ()
+;; Borrowed from https://github.com/rrudakov/dotfiles/blob/master/emacs.d/emacs.org
+(defun k/copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
   (interactive)
   (let ((filename (if (equal major-mode 'dired-mode)
@@ -28,7 +29,7 @@
                     (buffer-file-name))))
     (when filename
       (kill-new filename)
-      (message "Copied buffer file name '%s' to the clipboard." filename))))
+      (message "Copied buffer file name '%s' to clipboard." filename))))
 
 ;; Easy transition between buffers: M-arrow-keys.
 (windmove-default-keybindings 'meta)
