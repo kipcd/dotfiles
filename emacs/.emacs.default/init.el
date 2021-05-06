@@ -294,7 +294,20 @@
     [0 0 0 0 0 0 0 0 0 0 0 0 0 128 192 224 240 248]
     nil nil 'center))
 
+;; Update `vc-state' for each opened buffer.
+;; It will affect all modes which relies on `vc-mode' state (for example `vc-status' in the modeline and `diff-hl')
+;; Borrowed from https://github.com/rrudakov/dotfiles/blob/master/emacs.d/emacs.org
+(defun k/refresh-vc-state ()
+  "Refresh `vc-state' on all buffers."
+  (dolist (buff (buffer-list))
+    (with-current-buffer buff
+      (when (vc-mode)
+        (vc-refresh-state)))))
+
 (use-package magit
+  :config
+  ;; Update git status in all buffers
+  (add-hook 'magit-post-refresh-hook #'k/refresh-vc-state 5)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
 
