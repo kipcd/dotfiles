@@ -526,13 +526,17 @@
   ;; Add assertj to the list of static import completions
   (setq lsp-java-completion-favorite-static-members
         (vconcat lsp-java-completion-favorite-static-members '("org.assertj.core.api.Assertions.*")))
-  (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml")
-  (setq lsp-java-format-settings-profile "GoogleStyle")
+  ;; (setq lsp-java-format-settings-url "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml")
+  ;; (setq lsp-java-format-settings-profile "GoogleStyle")
 
   ;; Performance improvements
   (setq lsp-java-completion-max-results 10)
 
-  (add-hook 'java-mode-hook 'lsp))
+  (add-hook 'java-mode-hook 'lsp)
+  :custom
+  (lsp-java-sources-organize-imports-static-star-threshold 3)
+  (lsp-java-sources-organize-imports-star-threshold 5)
+  )
 
 (defun kipcd/fill-column-120 ()
   "Configure display-fill-column-indicator-mode to display a ruler at column 120"
