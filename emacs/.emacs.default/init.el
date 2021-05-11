@@ -536,6 +536,8 @@
   :custom
   (lsp-java-sources-organize-imports-static-star-threshold 3)
   (lsp-java-sources-organize-imports-star-threshold 5)
+  (lsp-java-completion-import-order ["" "javax" "java" "#"]
+                                    "Order import statements as in IntelliJ. '#' is for static imports, empty string stands for 'everything esle'")
   )
 
 (defun kipcd/fill-column-120 ()
