@@ -121,6 +121,11 @@
   (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
   )
 
+;; Visual hint for common evil actions
+(use-package evil-goggles
+  :config
+  (evil-goggles-mode))
+
 ;; Pre-configured evil mode for many different modes
 (use-package evil-collection
   :after evil
