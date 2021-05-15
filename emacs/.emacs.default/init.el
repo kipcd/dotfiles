@@ -65,12 +65,20 @@
 
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
 (use-package no-littering
+  :demand t
   :config
   (add-to-list 'recentf-exclude no-littering-var-directory)
   (add-to-list 'recentf-exclude no-littering-etc-directory)
   (setq auto-save-file-name-transforms
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
   )
+
+;; Remember point position in a file between sessions
+(use-package saveplace
+  :init (save-place-mode)
+  ;; load after `no-littering' because it moves save-place.el file to var dir
+  :after no-littering
+)
 
 (require 'kipcd-core (expand-file-name "kipcd-core/kipcd-core" user-emacs-directory))
 
