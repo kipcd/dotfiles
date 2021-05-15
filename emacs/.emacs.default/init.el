@@ -54,25 +54,25 @@
 ;; ensure guarantees that use-package will always download a package for you on first run
 (setq use-package-always-ensure t)
 
+;; Use no-littering to automatically set common paths to the new user-emacs-directory
+(use-package no-littering
+  :demand t
+  :config
+  (setq auto-save-file-name-transforms
+        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
+  )
+
 (use-package recentf
+  :after no-littering
   :config
   (setq recentf-max-saved-items 500
         recentf-max-menu-items 15)
+  (add-to-list 'recentf-exclude no-littering-var-directory)
+  (add-to-list 'recentf-exclude no-littering-etc-directory)
   ;; disable recentf-cleanup on Emacs start, because it can cause
   ;; problems with remote files
   ;; recentf-auto-cleanup 'never)
   (recentf-mode 1))
-
-;; Use no-littering to automatically set common paths to the new user-emacs-directory
-(use-package no-littering
-  :demand t
-  :after recentf
-  :config
-  (add-to-list 'recentf-exclude no-littering-var-directory)
-  (add-to-list 'recentf-exclude no-littering-etc-directory)
-  (setq auto-save-file-name-transforms
-        `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
-  )
 
 ;; Remember point position in a file between sessions
 (use-package saveplace
