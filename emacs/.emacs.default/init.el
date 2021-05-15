@@ -404,6 +404,7 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
   :custom
+  ;; Show warning when exec-path-from-shell take more than 100 ms to initialize
   (exec-path-from-shell-warn-duration-millis 100)
   ;; start a non-interactive shell instead of interactive
   ;; to spead up the init process.
