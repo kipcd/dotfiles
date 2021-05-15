@@ -51,10 +51,10 @@
 (use-package which-key
   :demand t
   :commands which-key-mode
-  ;; :init (which-key-mode)
   :config
-  (setq which-key-idle-delay 0.3)                          ;; Reduce the time before which-key pops up
-  (setq which-key-sort-order 'which-key-key-order-alpha)   ;; Sort things properly alphabetical
+  (setq which-key-idle-delay 0.3                          ;; Reduce the time before which-key pops up
+        which-key-sort-order 'which-key-key-order-alpha   ;; Sort things properly alphabetical
+        which-key-max-description-length 50)
   (which-key-mode))
 
 ;; Keybindings manager. Facilitates to maintain a personal global prefix for keybindings
