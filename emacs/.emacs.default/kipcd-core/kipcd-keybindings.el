@@ -35,6 +35,12 @@
   :type 'string
   :group 'kipcd)
 
+;; Easy transition between buffers: M-arrow-keys.
+(windmove-default-keybindings 'meta)
+
+;; Bind keyboard-escape-quit to ESC instead of ESC ESC ESC
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+
 ;;; `which-key':
 ;; This is a really cool package, I initially discovered this from Spacemacs (as
 ;; I have done with a great many things). What it does is show you any and all

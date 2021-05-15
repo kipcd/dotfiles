@@ -31,11 +31,6 @@
       (kill-new filename)
       (message "Copied buffer file name '%s' to clipboard." filename))))
 
-;; Easy transition between buffers: M-arrow-keys.
-(windmove-default-keybindings 'meta)
-
-;; Bind keyboard-escape-quit to ESC instead of ESC ESC ESC
-(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 ;; Set font and font size (130/100 = 13pt)
 (set-face-attribute 'default nil :font "Source Code Pro" :height 110)
 
