@@ -502,9 +502,6 @@
      ("java.format.tabSize" 4)))
   ;; Auto-save project buffers after code actions
   (add-hook 'lsp-after-apply-edits-hook (lambda (&rest _) (projectile-save-project-buffers))))
-;; (with-eval-after-load 'lsp-mode
-;;   (kipcd/leader-keys
-;;     "l" lsp-command-map))
 
 ;; Set lsp-log-io to t to inspect communication between client and the server.
 ;; Use lsp-workspace-show-log to switch to the corresponding log buffer.
