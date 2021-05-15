@@ -59,13 +59,19 @@
 ;; ensure guarantees that use-package will always download a package for you on first run
 (setq use-package-always-ensure t)
 
-;; Change the user-emacs-directory to keep unwanted things out of ~/.emacs.d
-;; (setq user-emacs-directory (expand-file-name "~/.cache/emacs/")
-;;       url-history-file (expand-file-name "url/history" user-emacs-directory))
+(use-package recentf
+  :config
+  (setq recentf-max-saved-items 500
+        recentf-max-menu-items 15)
+  ;; disable recentf-cleanup on Emacs start, because it can cause
+  ;; problems with remote files
+  ;; recentf-auto-cleanup 'never)
+  (recentf-mode 1))
 
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
 (use-package no-littering
   :demand t
+  :after recentf
   :config
   (add-to-list 'recentf-exclude no-littering-var-directory)
   (add-to-list 'recentf-exclude no-littering-etc-directory)
