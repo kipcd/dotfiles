@@ -1,23 +1,11 @@
+# This file is read when zsh is started in interactive shell
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
-
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/.local/bin:/usr/local/bin:$PATH
-
-# add go to PATH
-export PATH="$PATH:/usr/local/go/bin"
-# add jmeter to PATH
-export PATH="$PATH:$HOME/dev/jmeter/bin"
-# add Selenium ChromeDriver to PATH
-export PATH="$PATH:$HOME/wed/selenium"
-# add Doom Emacs bin/ to path
-export PATH="$PATH:$HOME/doom-emacs/bin"
-
-export DEVELOPER_KIT_HOME="$HOME/wed/data/ws/developer-kit"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -96,7 +84,7 @@ source $ZSH/oh-my-zsh.sh
 # Fish-like syntax highlighting for shell input
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Colorized common utils 
+# Colorized common utils
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 # User configuration
 
@@ -109,23 +97,8 @@ bindkey "^R" history-incremental-pattern-search-backward
 # start xbindkeys if installed
 type -p xbindkeys > /dev/null && xbindkeys -f $HOME/.config/xbindkeys/.xbindkeysrc
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
- if [[ -n $SSH_CONNECTION ]]; then
-   export EDITOR='vim'
- else
-   export EDITOR='emacs'
-   # export EDITOR='emacsclient --no-wait --create-frame'
- fi
-
-# Run terminal Emacs client for editing git messages
-# export VISUAL='emacsclient --tty'
-# export VISUAL='emacsclient --create-frame'
- export VISUAL='emacs'
 
 # An SSH agent prevents to enter the SSH private key passphrase each time the ssh command is invoqued.
 #ssh_env=${XDG_CACHE_HOME:-$HOME}/.ssh-agent
@@ -147,10 +120,10 @@ type -p xbindkeys > /dev/null && xbindkeys -f $HOME/.config/xbindkeys/.xbindkeys
 # Example aliases
 
 # Verbose copy
-alias cp='cp -v' 
+alias cp='cp -v'
 
 # dotfile management with bare git repository
-alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME $@' 
+alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME $@'
 
 # colored ls
 alias lc='colorls -lA --sd'

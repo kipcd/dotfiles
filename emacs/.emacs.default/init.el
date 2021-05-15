@@ -1,4 +1,4 @@
-;; My bare Emacs config
+;; My vanilla Emacs config
 
 ;; Performance tweaks
 ;; Following lsp-mode performance guidelines
@@ -403,6 +403,13 @@
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
+  :custom
+  (exec-path-from-shell-warn-duration-millis 100)
+  ;; start a non-interactive shell instead of interactive
+  ;; to spead up the init process.
+  ;; PATH variable should be set correctly for non-interactive shells,
+  ;; in .zshenv in my case
+  (exec-path-from-shell-arguments nil)
   )
 
 ;; Set ssh-agent and gpg-agent environment variables when starting Emacs from X11.
