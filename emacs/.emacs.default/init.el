@@ -156,13 +156,14 @@
 (use-package doom-modeline
   :init (doom-modeline-mode 1))
 
-(use-package dracula-theme)
-;; 't' avoids prompting for loading theme each time
-(load-theme 'dracula t)
-
 ;; A bunch of old-school color themes
 ;; Wanted to check `gnome2' theme
 (use-package color-theme-modern)
+(use-package humanoid-themes)
+(use-package dracula-theme)
+;; 't' avoids prompting for loading theme each time
+;; (load-theme 'dracula t)
+(load-theme 'humanoid-dark t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
