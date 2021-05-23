@@ -404,9 +404,12 @@
 ;; used to identify installed typescript-language-server for lsp-mode.
 ;; Confirm the npm executable is found: M-: (executable-find "npm")
 (use-package exec-path-from-shell
+  ;; :init
+  ;; (add-to-list 'exec-path-from-shell-variables "JAVA_HOME")
   :config
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
+  (exec-path-from-shell-copy-env "JAVA_HOME")
   :custom
   ;; Show warning when exec-path-from-shell take more than 100 ms to initialize
   (exec-path-from-shell-warn-duration-millis 100)
