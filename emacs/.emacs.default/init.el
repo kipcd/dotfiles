@@ -20,6 +20,10 @@
 ;; Answer 'yes' or 'no' questions with 'y' or 'n'
 (defalias 'yes-or-no-p #'y-or-n-p)
 
+;; Don't warn about active processes on exit
+(setq confirm-kill-processes nil)
+
+
 ;; Borrowed from https://github.com/rrudakov/dotfiles/blob/master/emacs.d/emacs.org
 (defun k/copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
