@@ -36,7 +36,8 @@
       (message "Copied buffer file name '%s' to clipboard." filename))))
 
 ;; Set font and font size (130/100 = 13pt)
-(set-face-attribute 'default nil :font "Source Code Pro" :height 110)
+;; (set-face-attribute 'default nil :font "Source Code Pro" :height 110)
+(set-face-attribute 'default nil :font "Iosevka" :height 110)
 
 ;; Initialize package repositories
 (require 'package)
