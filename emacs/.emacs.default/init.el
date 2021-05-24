@@ -360,6 +360,7 @@
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit)
   (setq org-habit-graph-column 60)
+  (setq org-habit-show-all-today t)
 
   ;; Save org buffers after refiling
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
