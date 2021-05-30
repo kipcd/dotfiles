@@ -158,21 +158,22 @@
 
 ;; A bunch of old-school color themes
 ;; Wanted to check `gnome2' theme
-;; (use-package color-theme-modern)
+(use-package color-theme-modern)
 ;; (use-package humanoid-themes)
 ;; (use-package dracula-theme)
 ;; 't' avoids prompting for loading theme each time
 ;; (load-theme 'dracula t)
-(use-package zenburn-theme
-  :config
-  ;; use variable-pitch fonts for some headings and titles
-  (setq zenburn-use-variable-pitch t)
-  ;; scale headings in org-mode
-  (setq zenburn-scale-org-headlines t)
-  ;; scale headings in outline-mode
-  (setq zenburn-scale-outline-headlines t)
-  )
-(load-theme 'zenburn t)
+;; (use-package zenburn-theme
+;;   :config
+;;   ;; use variable-pitch fonts for some headings and titles
+;;   (setq zenburn-use-variable-pitch t)
+;;   ;; scale headings in org-mode
+;;   (setq zenburn-scale-org-headlines t)
+;;   ;; scale headings in outline-mode
+;;   (setq zenburn-scale-outline-headlines t)
+;;   )
+;; (load-theme 'zenburn t)
+(load-theme 'gnome2 t)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
