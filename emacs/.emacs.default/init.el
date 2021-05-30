@@ -499,6 +499,8 @@
 ;; Go to LSP mode documentation for the instructions about installing
 ;; desired language server on your machine
 (defun kipcd/lsp-mode-setup ()
+  ;; Force lsp-mode to forget the workspace folders for multi root servers so the workspace folders are added on demand
+  (advice-add 'lsp :before (lambda (&rest _args) (eval '(setf (lsp-session-server-id->folders (lsp-session)) (ht)))))
   )
 
 (use-package lsp-mode
