@@ -41,6 +41,10 @@
 ;; Bind keyboard-escape-quit to ESC instead of ESC ESC ESC
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
+;; Move cursor to the newly created window
+(global-set-key "\C-x2" (lambda () (interactive)(split-window-vertically) (other-window 1)))
+(global-set-key "\C-x3" (lambda () (interactive)(split-window-horizontally) (other-window 1)))
+
 ;;; `which-key':
 ;; This is a really cool package, I initially discovered this from Spacemacs (as
 ;; I have done with a great many things). What it does is show you any and all
