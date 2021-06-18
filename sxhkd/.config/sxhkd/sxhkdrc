@@ -18,6 +18,10 @@ super + Escape
 super + Print
 	maim -s ~/Pictures/screenshot-$(date +%F-%H-%M-%S).png
 
+# Open Emacs
+super + e
+        emacs
+	
 #
 # bspwm hotkeys
 #
