@@ -423,6 +423,8 @@
   (when (memq window-system '(mac ns x))
     (exec-path-from-shell-initialize))
   (exec-path-from-shell-copy-env "JAVA_HOME")
+  ;; Make keyring work inside Emacs (Makes Magit not ask for SSH passphrase every time)
+  (exec-path-from-shell-copy-env "SSH_AUTH_SOCK")
   :custom
   ;; Show warning when exec-path-from-shell take more than 100 ms to initialize
   (exec-path-from-shell-warn-duration-millis 100)
