@@ -84,10 +84,6 @@ source $ZSH/oh-my-zsh.sh
 # Fish-like syntax highlighting for shell input
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Colorized common utils
-[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
-# User configuration
-
 # Init Node Version Manager
 source /usr/share/nvm/init-nvm.sh
 
