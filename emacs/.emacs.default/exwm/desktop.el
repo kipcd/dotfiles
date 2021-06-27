@@ -23,6 +23,7 @@
   ;; (efs/run-in-background "pasystray")
   ;; (efs/run-in-background "blueman-applet")
   (efs/run-in-background "dropbox")
+  (efs/run-in-background "pasystray")
   )
 
 (defun efs/exwm-update-class ()
