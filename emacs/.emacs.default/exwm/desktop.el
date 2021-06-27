@@ -97,6 +97,7 @@
                           (exwm-workspace-switch-create ,i))))
                     (number-sequence 0 9))))
 
+  (exwm-input-set-key (kbd "s-SPC") 'counsel-linux-app)
   (exwm-enable))
 
 (use-package desktop-environment
