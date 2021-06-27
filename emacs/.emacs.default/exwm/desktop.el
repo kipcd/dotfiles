@@ -1,3 +1,29 @@
+;; Provide the means of running external applications in background, like panels and network or bluetooth applets
+(defun efs/run-in-background (command)
+  (let ((command-parts (split-string command "[ ]+")))
+    (apply #'call-process `(,(car command-parts) nil 0 nil ,@(cdr command-parts)))))
+
+(defun efs/exwm-init-hook ()
+  ;; Make workspace 1 be the one where we land at startup
+  (exwm-workspace-switch-create 1)
+
+  ;; Open eshell by default
+  ;;(eshell)
+
+  ;; Show battery status in the mode line
+  (display-battery-mode 1)
+
+  ;; Show the time and date in modeline
+  (setq display-time-day-and-date t)
+  (display-time-mode 1)
+  ;; Also take a look at display-time-format and format-time-string
+
+  ;; Launch apps that will run in the background
+  ;; (efs/run-in-background "nm-applet")
+  ;; (efs/run-in-background "pasystray")
+  ;; (efs/run-in-background "blueman-applet")
+  (efs/run-in-background "dropbox")
+  )
 
 (defun efs/exwm-update-class ()
   (exwm-workspace-rename-buffer exwm-class-name))
@@ -10,6 +36,9 @@
   ;; When window "class" updates, use it to set the buffer name
   (add-hook 'exwm-update-class-hook #'efs/exwm-update-class)
 
+  ;; When EXWM starts up, do some extra configuration
+  (add-hook 'exwm-init-hook #'efs/exwm-init-hook)
+
   ;; Set the screen resolution (update this to be the correct resolution for your screen!)
   (require 'exwm-randr)
   (exwm-randr-enable)
@@ -17,6 +46,8 @@
 
   ;; Load the system tray before exwm-init
   (require 'exwm-systemtray)
+  ;; Sometimes systemtray could not display all icons if the height isn't set explicitely
+  (setq exwm-systemtray-height 32)
   (exwm-systemtray-enable)
 
   ;; These keys should always pass through to Emacs
@@ -66,3 +97,12 @@
                     (number-sequence 0 9))))
 
   (exwm-enable))
+
+(use-package desktop-environment
+  :after exwm
+  :config (desktop-environment-mode)
+  :custom
+  (desktop-environment-brightness-small-increment "2%+")
+  (desktop-environment-brightness-small-decrement "2%-")
+  (desktop-environment-brightness-normal-increment "5%+")
+  (desktop-environment-brightness-normal-decrement "5%-"))
