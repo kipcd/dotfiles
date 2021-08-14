@@ -68,6 +68,16 @@
         `((".*" ,(no-littering-expand-var-file-name "auto-save/") t)))
   )
 
+;; Fix the error provoked by long file paths:
+;; after-find-file: Getting attributes: File name too long, /home/denis/.emacs.default/var/auto-save/#!...
+(defun my-shorten-auto-save-file-name (&rest args)
+  (let ((buffer-file-name
+         (when buffer-file-name (sha1 buffer-file-name))))
+    (apply args)))
+
+(advice-add 'make-auto-save-file-name :around
+            #'my-shorten-auto-save-file-name)
+
 (use-package recentf
   :after no-littering
   :config
