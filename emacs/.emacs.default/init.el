@@ -23,6 +23,7 @@
 ;; Don't warn about active processes on exit
 (setq confirm-kill-processes nil)
 
+(setq initial-scratch-message nil)
 
 ;; Borrowed from https://github.com/rrudakov/dotfiles/blob/master/emacs.d/emacs.org
 (defun k/copy-file-name-to-clipboard ()
