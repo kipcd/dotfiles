@@ -32,12 +32,12 @@ bspc rule -a firefox desktop='^7'
 bspc rule -a Chromium desktop='^8'
 # Selenium Chrome webdriver
 bspc rule -a Chromium-browser desktop='^8'
-bspc rule -a Emacs desktop='^6' state=fullscreen follow=on
+bspc rule -a Emacs state=tiled follow=on
 bspc rule -a Pavucontrol desktop='^5' follow=on
 bspc rule -a Slack desktop='^1' follow=on
 
 # A quote of the day one-shot rule
-bspc rule --add '*' --one-shot desktop='^1' state=floating rectangle=760x480+1145+55
+bspc rule --add Alacritty --one-shot desktop='^1' state=floating rectangle=760x480+1145+55
 # Cow quote (the one-shot rule will be applied to it)
 alacritty --class cow --hold -e zsh -c 'fortune | cowsay' &
 
@@ -73,5 +73,5 @@ fi
 
 # Just start Emacs
 if ! pgrep emacs ; then
-    emacs &
+    bspc desktop --focus ^6 && emacs -l ~/dotfiles/emacs/.emacs.default/autostart-config.el &
 fi

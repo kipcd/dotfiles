@@ -666,10 +666,10 @@
   :hook
   (company-mode . company-box-mode))
 
-(defun emacs-startup-screen ()
+(defun k/open-agenda-with-todo ()
   "Display the weekly org-agenda and all todos."
   (org-agenda nil "n"))
-(add-hook 'emacs-startup-hook #'emacs-startup-screen)
+;; (add-hook 'emacs-startup-hook #'emacs-startup-screen)
 
 ;; Major mode to manage .pacnew and .pacsave of Arch Linux's Pacman
 (use-package pacfiles-mode)
