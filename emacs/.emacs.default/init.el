@@ -668,8 +668,9 @@
 
 (defun k/open-agenda-with-todo ()
   "Display the weekly org-agenda and all todos."
+  (interactive)
   (org-agenda nil "n"))
-;; (add-hook 'emacs-startup-hook #'emacs-startup-screen)
+(global-set-key (kbd "<f5>") 'k/open-agenda-with-todo)
 
 ;; Major mode to manage .pacnew and .pacsave of Arch Linux's Pacman
 (use-package pacfiles-mode)
