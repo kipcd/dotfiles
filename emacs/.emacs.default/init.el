@@ -134,6 +134,9 @@
         ("C-r" . 'counsel-minibuffer-history))
   :config
   (counsel-mode 1)
+  ;; Enable selecting of what you are typing in prompt with C-n / C-p.
+  ;; Helpful when trying to create a file in `counsel-find-file' with a name which is a subset of existing file name.
+  (setq ivy-use-selectable-prompt t)
   ;; Remove ^ from M-x input - ^ means match only from beginning of the string
   (setcdr (assoc 'counsel-M-x ivy-initial-inputs-alist) ""))
 
