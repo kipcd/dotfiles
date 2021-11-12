@@ -51,4 +51,4 @@ fi
 # Fix for correct rendering of java apps
 export AWT_TOOLKIT=MToolkit
 
-exec bspwm 2>~/logs/bspwm.err
+# exec bspwm 2>~/logs/bspwm.err

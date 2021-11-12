@@ -1,3 +1,10 @@
+#!/bin/sh
+# This file is executed be lightdm
+
+[[ -f ~/.zshenv ]] && source ~/.zshenv
+
 # Fix for correct rendering of java apps
 # export AWT_TOOLKIT=MToolkit
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+# exec bspwm 2>~/logs/bspwm.err
