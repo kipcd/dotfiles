@@ -579,21 +579,19 @@
 
 (use-package lsp-ivy)
 
-;; TODO
-;; (let ((lombok-file "/home/yyoncho/lombok-1.18.12.jar"))
-;;   (setq lsp-java-vmargs
-;;         (list "-noverify"
-;;               "-Xmx4G"
-;;               "-XX:+UseG1GC"
-;;               "-XX:+UseStringDeduplication"
-;;               (concat "-javaagent:" lombok-file))))
-
 (use-package lsp-java
   :config
-  (setq lsp-java-java-path (substitute-in-file-name "$HOME/.sdkman/candidates/java/11.0.8.hs-adpt/bin/java"))
-  (setq lsp-java-vmargs
-        '("-noverify"
-          (substitute-in-file-name "-javaagent:$HOME/.m2/repository/org/projectlombok/lombok/1.18.18/lombok-1.18.18.jar")))
+  (setq lsp-java-java-path (substitute-in-file-name "$HOME/.sdkman/candidates/java/11.0.11.hs-adpt/bin/java"))
+  (let ((lombok-file (substitute-in-file-name "$HOME/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar")))
+    (setq lsp-java-vmargs
+        (list "-noverify"
+              "-Xmx4G"
+              "-Xms100m"
+              "-XX:+UseG1GC"
+              "-XX:+UseStringDeduplication"
+              "-Dsun.zip.disableMemoryMapping=true"
+              (concat "-javaagent:" lombok-file))))
+  ;;         (substitute-in-file-name "-javaagent:$HOME/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar")))
   ;; Add assertj to the list of static import completions
   (setq lsp-java-completion-favorite-static-members
         (vconcat lsp-java-completion-favorite-static-members '("org.assertj.core.api.Assertions.*")))
@@ -605,10 +603,12 @@
   ;; List Java Runtime Environments
   ;; Configuration syntax: https://github.com/eclipse/eclipse.jdt.ls/issues/1307#issuecomment-573154969
   (setq lsp-java-configuration-runtimes '[
+                                          (:name "JavaSE-16"
+                                                 :path (substitute-in-file-name "$HOME/.sdkman/candidates/java/16.0.1.hs-adpt"))
                                           (:name "JavaSE-11"
-                                                 :path (substitute-in-file-name "$HOME/.sdkman/candidates/java/11.0.8.hs-adpt"))
+                                                 :path (substitute-in-file-name "$HOME/.sdkman/candidates/java/11.0.11.hs-adpt"))
                                           (:name "JavaSE-1.8"
-                                                 :path (substitute-in-file-name "$HOME/.sdkman/candidates/java/8.0.265.hs-adpt")
+                                                 :path (substitute-in-file-name "$HOME/.sdkman/candidates/java/8.0.292.hs-adpt")
                                                  :default t)])
 
   (add-hook 'java-mode-hook 'lsp)
