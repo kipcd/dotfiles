@@ -153,6 +153,13 @@ in the buffer (although not actually inserting it after accepting the suggestion
 (use-package evil-nerd-commenter
   :bind ("M-/" . evilnc-comment-or-uncomment-lines))
 
+;; Find and replace in evil visual block
+(use-package evil-visual-replace
+  :config
+  ;; Replace the M-% and C-M-% bindings in evil-visual-state-map
+  (evil-visual-replace-visual-bindings)
+  )
+
 (provide 'kipcd-keybindings)
 
 ;;; kipcd-keybindings.el ends here
