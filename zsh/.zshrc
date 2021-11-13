@@ -82,10 +82,10 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # Fish-like syntax highlighting for shell input
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Init Node Version Manager
-source /usr/share/nvm/init-nvm.sh
+# source /usr/share/nvm/init-nvm.sh
 
 # set shortcut for reverse incremental search
 bindkey "^R" history-incremental-pattern-search-backward
