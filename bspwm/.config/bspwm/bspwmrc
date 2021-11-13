@@ -8,8 +8,6 @@ bspc config remove_disabled_monitors    true
 #bspc monitor eDP-1-1 -d I II III IV V
 #bspc monitor DP-1 -d VI VII VIII IX X
 
-# /home/denis/.config/.screenlayout/xrandr-dual-screen.sh
-
 i=1
 n=$(bspc query -M | wc -l) # Count number of lines in bspwm's monitor list
 per=$(( 10 / n))           # Number of desktops per monitor
@@ -28,18 +26,18 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a Gimp state=floating follow=on
-bspc rule -a firefox desktop='^7'
 bspc rule -a Chromium desktop='^8'
 # Selenium Chrome webdriver
 bspc rule -a Chromium-browser desktop='^8'
+bspc rule -a Google-chrome desktop='^7'
 bspc rule -a Emacs state=tiled follow=on
 bspc rule -a Pavucontrol desktop='^5' follow=on
 bspc rule -a Slack desktop='^1' follow=on
 
 # A quote of the day one-shot rule
-bspc rule --add Alacritty --one-shot desktop='^1' state=floating rectangle=760x480+1145+55
+#bspc rule --add Alacritty --one-shot desktop='^1' state=floating rectangle=760x480+1145+55
 # Cow quote (the one-shot rule will be applied to it)
-alacritty --class cow --hold -e zsh -c 'fortune | cowsay' &
+#alacritty --class cow --hold -e zsh -c 'fortune | cowsay' &
 
 # keymappings
 if ! pgrep sxhkd ; then
@@ -47,7 +45,9 @@ sxhkd &
 fi
 
 # Set wallpaper with feh
-"$HOME"/.fehbg &
+#if ! pgrep feh ; then
+#"$HOME"/.fehbg &
+#fi
 
 if ! pgrep picom ; then
 picom -b &
@@ -75,3 +75,9 @@ fi
 if ! pgrep emacs ; then
     bspc desktop --focus ^6 && emacs -l ~/dotfiles/emacs/.emacs.default/autostart-config.el &
 fi
+
+# Mount cloud.mail.ru drives
+# if [ -x "$(command -v marcfs)" ]; then
+#     marcfs /home/denis/cloud/cloudmailru &
+#     marcfs /home/denis/cloud/cloudmailru-dk -o conffile=/home/denis/.config/marcfs/cloudmailru-dk-config.json &
+# fi
