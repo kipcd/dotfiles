@@ -21,6 +21,10 @@ super + Print
 # Open Emacs
 super + e
         emacs
+
+# Lock screen
+super + F12
+      	slock
 	
 #
 # bspwm hotkeys
