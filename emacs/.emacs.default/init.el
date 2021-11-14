@@ -573,7 +573,14 @@
 ;; Project file tree
 (use-package lsp-treemacs
   :after lsp-mode
+  :config
+  ;; Decrease treemacs font size
+  (setq treemacs-text-scale -1)
+  :bind
+  ("<M-right>" . treemacs-increase-width)
+  ("<M-left>" . treemacs-decrease-width)
   :custom
+  (treemacs-width-increment 5 "Resize treemacs width in steps of this value")
   (lsp-treemacs-error-list-severity 1 "Show only errors in lsp-treemacs-error-list")
   (lsp-treemacs-error-list-current-project-only t "Show errors only from current workspace")
   )
