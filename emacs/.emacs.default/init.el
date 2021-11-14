@@ -60,6 +60,38 @@
 ;; ensure guarantees that use-package will always download a package for you on first run
 (setq use-package-always-ensure t)
 
+;; A bunch of old-school color themes
+;; (use-package color-theme-modern)
+;; (load-theme 'gnome2 t) ;; very nice old-school slate theme
+
+;; (use-package humanoid-themes)
+(use-package dracula-theme
+  :config
+  ;; 't' avoids prompting for loading theme each time
+  (load-theme 'dracula t))
+;; (use-package zenburn-theme
+;;   :config
+;;   ;; use variable-pitch fonts for some headings and titles
+;;   (setq zenburn-use-variable-pitch t)
+;;   ;; scale headings in org-mode
+;;   (setq zenburn-scale-org-headlines t)
+;;   ;; scale headings in outline-mode
+;;   (setq zenburn-scale-outline-headlines t)
+;;   )
+;; (load-theme 'zenburn t)
+
+;; (use-package monokai-pro-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'monokai-pro-machine t))
+
+;; (use-package subatomic-theme
+;;   :config
+;;   (load-theme 'subatomic t))
+
+(use-package doom-modeline
+  :init (doom-modeline-mode 1))
+
 ;; Use no-littering to automatically set common paths to the new user-emacs-directory
 (use-package no-littering
   :demand t
@@ -166,37 +198,6 @@
 ;; Required by doom-modeline
 ;; After first install run ~all-the-icons-install-fonts~
 (use-package all-the-icons)
-
-(use-package doom-modeline
-  :init (doom-modeline-mode 1))
-
-;; A bunch of old-school color themes
-;; (use-package color-theme-modern)
-;; (load-theme 'gnome2 t) ;; very nice old-school slate theme
-
-;; (use-package humanoid-themes)
-;; (use-package dracula-theme)
-;; 't' avoids prompting for loading theme each time
-;; (load-theme 'dracula t)
-;; (use-package zenburn-theme
-;;   :config
-;;   ;; use variable-pitch fonts for some headings and titles
-;;   (setq zenburn-use-variable-pitch t)
-;;   ;; scale headings in org-mode
-;;   (setq zenburn-scale-org-headlines t)
-;;   ;; scale headings in outline-mode
-;;   (setq zenburn-scale-outline-headlines t)
-;;   )
-;; (load-theme 'zenburn t)
-
-;; (use-package monokai-pro-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'monokai-pro-machine t))
-
-(use-package subatomic-theme
-  :config
-  (load-theme 'subatomic t))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
