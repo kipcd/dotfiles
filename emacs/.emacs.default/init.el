@@ -582,7 +582,7 @@
 
 (use-package lsp-java
   :config
-  (setq lsp-java-java-path (substitute-in-file-name "$HOME/.sdkman/candidates/java/11.0.11.hs-adpt/bin/java"))
+  (setq lsp-java-java-path (substitute-in-file-name "$HOME/.sdkman/candidates/java/16.0.1.hs-adpt/bin/java"))
   (let ((lombok-file (substitute-in-file-name "$HOME/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar")))
     (setq lsp-java-vmargs
         (list "-noverify"
