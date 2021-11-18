@@ -686,6 +686,11 @@
 ;; Major mode to manage .pacnew and .pacsave of Arch Linux's Pacman
 (use-package pacfiles-mode)
 
+(use-package restclient
+  :config
+  ;; Create new buffer for each response
+  (setq restclient-same-buffer-response nil))
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file))
