@@ -643,7 +643,17 @@
   :config (dap-auto-configure-mode))
 
 (use-package dap-java
-  :ensure nil)
+  :ensure nil
+  :bind
+  ("<f5>" . dap-debug)
+  ("<f7>" . dap-step-in)
+  ("<M-f7>" . dap-step-out)
+  ("<f8>" . dap-next)
+  ("<f9>" . dap-continue)
+  )
+
+;; Load Java run configurations for dap-java. t inhibits error if file not present
+(require 'wed-dap-templates (substitute-in-file-name "$HOME/wed/wed-dap-templates.el") t)
 
 (use-package helm-lsp)
 
