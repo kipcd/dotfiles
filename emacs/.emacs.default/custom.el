@@ -6,7 +6,7 @@
  '(global-command-log-mode t)
  '(helm-minibuffer-history-key "M-p")
  '(org-agenda-files
-   '("~/Dropbox/org/2.emacs.org" "~/Dropbox/org/habits.org" "~/Dropbox/org/8.birthdays.org" "~/Dropbox/org/1.TODO.org"))
+   '("~/dev/org/2.emacs.org" "~/dev/org/habits.org" "~/dev/org/8.birthdays.org" "~/dev/org/1.TODO.org"))
  '(package-selected-packages
    '(restclient evil-visual-replace subatomic-theme monokai-pro-theme desktop-environment exwm evil-goggles color-theme-modern prog-mode no-littering impatient-mode simple-httpd json-mode jenkinsfile-mode groovy-mode string-inflection git-gutter-fringe smex vterm pacfiles-mode keychain-environment yasnippet flycheck lsp-java interaction-log evil-nerd-commenter lsp-ivy lsp-treemacs lsp-ui company-box company exec-path-from-shell typescript-mode lsp-mode evil-magit magit counsel-projectile projectile hydra evil-collection evil general helpful ivy-rich which-key rainbow-delimiters all-the-icons doom-modeline counsel ivy command-log-mode dracula-theme)))
 (custom-set-faces
