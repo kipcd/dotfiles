@@ -381,6 +381,9 @@
   :config
   (setq org-log-done 'time) ;; Write time on completing TODO task
   (setq org-agenda-start-with-log-mode t) ;; Show completed tasks in timetable
+  (setq org-agenda-start-on-weekday nil) ;; Unset the value to not start agenda on Monday
+  (setq org-agenda-start-day "-1d") ;; Start agenda from yesterday
+  (setq org-agenda-span 14) ;; Show 2 weeks in agenda
   (setq org-clock-into-drawer t)
   (setq org-agenda-files
         '("~/dev/org/2.emacs.org"
