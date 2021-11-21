@@ -378,6 +378,15 @@
   (setq org-log-done 'time) ;; Write time on completing TODO task
   (setq org-agenda-start-with-log-mode t) ;; Show completed tasks in timetable
   (setq org-clock-into-drawer t)
+  (setq org-agenda-files
+        '("~/dev/org/2.emacs.org"
+          "~/dev/org/habits.org"
+          "~/dev/org/8.birthdays.org"
+          "~/dev/org/1.TODO.org"
+          "~/dev/org/3.linux.org"
+          "~/dev/org/5.phone.org"
+          "~/dev/org/6.health.org"
+          "~/dev/org/7.cycling.org"))
   (setq org-refile-targets
         '(("9.archive.org" :maxlevel . 2) ;; maxlevel sets how deep in subtree can go
           ("1.TODO.org" :maxlevel . 1)))
