@@ -8,10 +8,10 @@ export PATH="$HOME/.sdkman/candidates/maven/current/bin:$HOME/.sdkman/candidates
 export DEVELOPER_KIT_HOME="$HOME/wed/data/ws/developer-kit"
 
 # To enable the keyring for applications run through the terminal, such as SSH
-if [ -n "$DESKTOP_SESSION" ];then
-    eval $(gnome-keyring-daemon --start)
-    export SSH_AUTH_SOCK
-fi
+# if [ -n "$DESKTOP_SESSION" ];then
+#     eval $(gnome-keyring-daemon --start)
+#     export SSH_AUTH_SOCK
+# fi
 
 export SCRIPTS=$HOME/.config/scripts
 export SCANNER=escl:https://192.168.0.14:443
