@@ -78,6 +78,9 @@ if ! pgrep emacs ; then
     bspc desktop --focus ^6 && emacs -l ~/dotfiles/emacs/.emacs.default/autostart-config.el &
 fi
 
+# Start Emacs daemon
+emacs --daemon &
+
 # Mount cloud.mail.ru drives
 # if [ -x "$(command -v marcfs)" ]; then
 #     marcfs /home/denis/cloud/cloudmailru &

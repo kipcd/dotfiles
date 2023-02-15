@@ -22,6 +22,10 @@ super + Print
 super + e
         emacs
 
+# Emacs Everywhere
+super + alt + e
+        emacsclient --eval '(emacs-everywhere)'
+
 # Lock screen
 super + F12
       	slock

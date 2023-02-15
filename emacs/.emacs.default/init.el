@@ -25,6 +25,9 @@
 
 (setq initial-scratch-message nil)
 
+;; if there is a Dired buffer displayed in the next window, use its current directory as a target for copy, move, etc.
+(setq dired-dwim-target t)
+
 ;; Borrowed from https://github.com/rrudakov/dotfiles/blob/master/emacs.d/emacs.org
 (defun k/copy-file-name-to-clipboard ()
   "Copy the current buffer file name to the clipboard."
@@ -38,16 +41,16 @@
 
 ;; Set font and font size (130/100 = 13pt)
 ;; (set-face-attribute 'default nil :font "Source Code Pro" :height 110)
-(set-face-attribute 'default nil :font "Iosevka" :height 110)
+;; (set-face-attribute 'default nil :font "Iosevka" :height 110)
 
 ;; Initialize package repositories
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+(add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
 (setq package-archive-priorities
-      '(("org" . 10)
-        ("melpa" . 5)
-        ("gnu" . 0)))
+      '(("gnu" . 10)
+        ("nongnu" . 5)
+        ("melpa" . 0)))
 ;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
 ;; and `package-pinned-packages`. Most users will not need or want to do this.
 ;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -296,6 +299,9 @@
   (imp-set-user-filter 'kipcd/github-markdown-filter)
   (imp-visit-buffer))
 
+;; Fast search. Required by projectile-ripgrep
+(use-package ripgrep)
+
 (use-package projectile
   :config
   (projectile-mode)
@@ -371,6 +377,18 @@
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
 (use-package forge)
 
+(defun endless/visit-pull-request-url ()
+  "Visit the current branch's PR on Github."
+  (interactive)
+  (browse-url
+   (format "https://github.com/%s/pull/new/%s"
+           (replace-regexp-in-string
+            "\\`.+github\\.com:\\(.+\\)\\.git\\'" "\\1"
+            (magit-get "remote"
+                       (magit-get-push-remote)
+                       "url"))
+           (magit-get-current-branch))))
+
 (defun kipcd/org-mode-setup ()
   (org-indent-mode)
   (visual-line-mode 1)  ;; line wrapping (visually break the line when it exceeds the screen size)
@@ -380,10 +398,13 @@
   :hook (org-mode . kipcd/org-mode-setup)
   :config
   (setq org-log-done 'time) ;; Write time on completing TODO task
+  (setq org-agenda-time-grid '((daily today require-timed)
+                              (530 800 1000 1200 1400 1600 1800 2000 2130)
+                              "......" "----------------"))
   (setq org-agenda-start-with-log-mode t) ;; Show completed tasks in timetable
   (setq org-agenda-start-on-weekday nil) ;; Unset the value to not start agenda on Monday
   (setq org-agenda-start-day "-1d") ;; Start agenda from yesterday
-  (setq org-agenda-span 14) ;; Show 2 weeks in agenda
+  (setq org-agenda-span 8) ;; Show 8 days in agenda
   (setq org-clock-into-drawer t)
   (setq org-agenda-files
         '("~/dev/org/2.emacs.org"
@@ -397,6 +418,11 @@
   (setq org-refile-targets
         '(("9.archive.org" :maxlevel . 2) ;; maxlevel sets how deep in subtree can go
           ("1.TODO.org" :maxlevel . 1)))
+  (setq org-agenda-include-diary t)
+  (setq diary-file "~/dev/org/agenda-diary.org")
+  (setq calendar-location-name "Barcelona, Spain")
+  (setq calendar-latitude 41.383333)
+  (setq calendar-longitude 2.183333)
 
   (require 'org-habit)
   (add-to-list 'org-modules 'org-habit)
@@ -445,6 +471,73 @@
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   )
 
+(defun diary-sunrise ()
+  (let ((dss (diary-sunrise-sunset)))
+    (with-temp-buffer
+      (insert dss)
+      (goto-char (point-min))
+      (while (re-search-forward " ([^)]*)" nil t)
+        (replace-match "" nil nil))
+      (goto-char (point-min))
+      (search-forward ",")
+      (buffer-substring (point-min) (match-beginning 0)))))
+
+(defun diary-sunset ()
+  (let ((dss (diary-sunrise-sunset))
+        start end)
+    (with-temp-buffer
+      (insert dss)
+      (goto-char (point-min))
+      (while (re-search-forward " ([^)]*)" nil t)
+        (replace-match "" nil nil))
+      (goto-char (point-min))
+      (search-forward ", ")
+      (setq start (match-end 0))
+      (search-forward " at")
+      (setq end (match-beginning 0))
+      (goto-char start)
+      (capitalize-word 1)
+      (buffer-substring start end))))
+
+;; (use-package org-super-agenda
+;;   :config
+;;   (org-super-agenda-mode)
+;;   (setq org-super-agenda-groups
+;;          '(;; Each group has an implicit boolean OR operator between its selectors.
+;;            ;; Discard duplicated items that have been scheduled for today and marked as DONE
+;;            ;; (:discard (:and (
+;;            ;;                  :scheduled t
+;;            ;;                  :todo "DONE"
+;;            ;;                  :not (:log closed))))
+;;            ;; (:name "Done today"
+;;            ;;        :todo "DONE"
+;;            ;;        :log closed ;; entries from log-mode
+;;            ;;        :order 4)
+;;            (:name "Important"
+;;                   :priority "A")
+;;            ;; Groups supply their own section names when none are given
+;;            (:todo "WAITING" :order 8)  ; Set order of this section
+;;            (:todo ("SOMEDAY" "TO-READ" "CHECK" "TO-WATCH" "WATCHING")
+;;                   ;; Show this group at the end of the agenda (since it has the
+;;                   ;; highest number). If you specified this group last, items
+;;                   ;; with these todo keywords that e.g. have priority A would be
+;;                   ;; displayed in that group instead, because items are grouped
+;;                   ;; out in the order the groups are listed.
+;;                   :order 9)
+;;            (:priority<= "B"
+;;                         ;; Show this section after "Today" and "Important", because
+;;                         ;; their order is unspecified, defaulting to 0. Sections
+;;                         ;; are displayed lowest-number-first.
+;;                         :order 1)
+;;            (:tag "emacs"
+;;                  :order 3)
+;;            (:discard (:time-grid t))
+;;            ;; After the last group, the agenda will display items that didn't
+;;            ;; match any of these groups, with the default order position of 99
+;;            )
+;;     )
+;;   )
+
 ;; Auth tokens location. Define Github token for magit forge
 (setq auth-sources '("~/.authinfo"))
 
@@ -487,6 +580,9 @@
   (add-hook 'flycheck-mode-hook #'flycheck-set-indication-mode))
 
 (use-package yasnippet :config (yas-global-mode))
+
+;; Java snippets for yasnippet. Unmaintained
+(use-package java-snippets)
 
 ;; Convert to/from camelCase/snake_case/kebab-case
 (use-package string-inflection)
@@ -546,12 +642,13 @@
   )
 
 (use-package lsp-mode
-  :commands (lsp lsp-deferred)
+  ;; :commands (lsp lsp-deferred)
   :hook
   ((lsp-mode . kipcd/lsp-mode-setup)
    (lsp-mode . lsp-enable-which-key-integration))
   :init
   (setq lsp-keymap-prefix nil)
+  (setq lsp-headerline-breadcrumb-enable nil)
   :general
   (kipcd/leader
     "l" '(:keymap lsp-command-map :which-key "LSP")
@@ -565,13 +662,14 @@
     "l F" '(:ignore t :wk "folder")
     "l G" '(:ignore t :wk "peek"))
   :config
-  (lsp-register-custom-settings
-   ;; Fix indentation for java code actions.
-   ;; When user selects a code action (create a constant, for example), LSP server sends a
-   ;; request for this 2 params to apply proper indentation to the proposed code.
-   ;; This way we will respond to LSP server with correct values for those params.
-   '(("java.format.insertSpaces" t)
-     ("java.format.tabSize" 4)))
+  (setq lsp-completion-enable-additional-text-edit nil)
+  ;; (lsp-register-custom-settings
+  ;;  ;; Fix indentation for java code actions.
+  ;;  ;; When user selects a code action (create a constant, for example), LSP server sends a
+  ;;  ;; request for this 2 params to apply proper indentation to the proposed code.
+  ;;  ;; This way we will respond to LSP server with correct values for those params.
+  ;;  '(("java.format.insertSpaces" t)
+  ;;    ("java.format.tabSize" 4)))
   ;; Auto-save project buffers after code actions
   (add-hook 'lsp-after-apply-edits-hook (lambda (&rest _) (projectile-save-project-buffers))))
 
@@ -582,13 +680,13 @@
 
 ;; LSP UI improvements (sideline with code actions, pop-ups, etc)
 (use-package lsp-ui
-  :hook (lsp-mode . lsp-ui-mode)
-  :custom
-  (lsp-ui-doc-position 'bottom)) ;; Documentation pop-up frame position
-
+  ;; :hook (lsp-mode . lsp-ui-mode)
+  ;; :custom
+  ;; (lsp-ui-doc-position 'bottom) ;; Documentation pop-up frame position
+  )
 ;; Project file tree
 (use-package lsp-treemacs
-  :after lsp-mode
+  ;; :after lsp-mode
   :config
   ;; Decrease treemacs font size
   (setq treemacs-text-scale -1)
@@ -605,17 +703,17 @@
 
 (use-package lsp-java
   :config
-  (setq lsp-java-java-path (substitute-in-file-name "$HOME/.sdkman/candidates/java/16.0.1.hs-adpt/bin/java"))
+  (setq lsp-java-java-path (substitute-in-file-name "$HOME/.sdkman/candidates/java/11.0.11.hs-adpt/bin/java"))
   (let ((lombok-file (substitute-in-file-name "$HOME/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar")))
     (setq lsp-java-vmargs
-        (list "-noverify"
-              "-Xmx4G"
-              "-Xms100m"
-              "-XX:+UseG1GC"
-              "-XX:+UseStringDeduplication"
-              "-Dsun.zip.disableMemoryMapping=true"
+          (list
+           ;; "-noverify"
+              ;; "-Xmx4G"
+              ;; "-Xms100m"
+              ;; "-XX:+UseG1GC"
+              ;; "-XX:+UseStringDeduplication"
+              ;; "-Dsun.zip.disableMemoryMapping=true"
               (concat "-javaagent:" lombok-file))))
-  ;;         (substitute-in-file-name "-javaagent:$HOME/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar")))
   ;; Add assertj to the list of static import completions
   (setq lsp-java-completion-favorite-static-members
         (vconcat lsp-java-completion-favorite-static-members '("org.assertj.core.api.Assertions.*")))
@@ -627,8 +725,12 @@
   ;; List Java Runtime Environments
   ;; Configuration syntax: https://github.com/eclipse/eclipse.jdt.ls/issues/1307#issuecomment-573154969
   (setq lsp-java-configuration-runtimes '[
+                                          (:name "JavaSE-17"
+                                                 :path (substitute-in-file-name "$HOME/.sdkman/candidates/java/17.0.1-tem"))
                                           (:name "JavaSE-16"
                                                  :path (substitute-in-file-name "$HOME/.sdkman/candidates/java/16.0.1.hs-adpt"))
+                                          (:name "JavaSE-15"
+                                                 :path (substitute-in-file-name "$HOME/.sdkman/candidates/java/15.0.2.hs-adpt"))
                                           (:name "JavaSE-11"
                                                  :path (substitute-in-file-name "$HOME/.sdkman/candidates/java/11.0.11.hs-adpt"))
                                           (:name "JavaSE-1.8"
@@ -666,7 +768,9 @@
   ("<M-f7>" . dap-step-out)
   ("<f8>" . dap-next)
   ("<f9>" . dap-continue)
-  )
+  :custom
+  (dap-java-test-additional-args '("-n" "\".*(Test|IT).*\""))
+)
 
 ;; Load Java run configurations for dap-java. t inhibits error if file not present
 (require 'wed-dap-templates (substitute-in-file-name "$HOME/wed/wed-dap-templates.el") t)
@@ -685,8 +789,8 @@
 
 ;; Better completion
 (use-package company
-  :after lsp-mode
-  :hook (lsp-mode . company-mode)
+  ;; :after lsp-mode
+  ;; :hook (lsp-mode . company-mode)
   :bind (
          :map company-active-map
          ("<tab>" . company-complete-common-or-cycle) ;; Complete common part or cycle through suggestions with TAB
@@ -694,14 +798,14 @@
          :map lsp-mode-map
          ("<tab>" . company-indent-or-complete-common)) ;; Indent or show completions on TAB on empty line
   :custom
-  (company-minimum-prefix-length 1) ;; Show suggestion after typing 1 character
-  (company-idle-delay 0.3) ;; Disable delay for completions to appear
+  (company-minimum-prefix-length 3) ;; Show suggestion after typing 3 character
+  (company-idle-delay 1.5) ;; Disable delay for completions to appear
   )
 
 ;; Better frontend for company
-(use-package company-box
-  :hook
-  (company-mode . company-box-mode))
+;; (use-package company-box
+;;   :hook
+;;   (company-mode . company-box-mode))
 
 (defun k/open-agenda-with-todo ()
   "Display the weekly org-agenda and all todos."
@@ -716,6 +820,15 @@
   :config
   ;; Create new buffer for each response
   (setq restclient-same-buffer-response nil))
+
+(use-package docker-compose-mode)
+
+(use-package emacs-everywhere)
+(remove-hook 'emacs-everywhere-init-hooks #'emacs-everywhere-major-mode-org-or-markdown) ; or #'org-mode if that's what's present
+(add-hook 'emacs-everywhere-init-hooks #'gfm-mode)
+;; (eval-after-load "emacs-everywhere"
+;;   '(defun emacs-everywhere-markdown-p ()
+;;      't))
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)

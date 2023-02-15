@@ -3,7 +3,7 @@
 # In practical terms, for most people this means
 # setting them in ~/.profile, ~/.bash_profile, ~/.zshenv
 # instead of ~/.bashrc and ~/.zshrc
-export PATH="$HOME/.sdkman/candidates/maven/current/bin:$HOME/.sdkman/candidates/java/current/bin:/home/denis/.nvm/versions/node/v12.18.3/bin:/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:$HOME/dev/jmeter/bin:$HOME/wed/selenium:$HOME/doom-emacs/bin"
+export PATH="$HOME/.sdkman/candidates/maven/current/bin:$HOME/.sdkman/candidates/java/current/bin:/home/denis/.nvm/versions/node/v12.18.3/bin:/usr/local/bin:/usr/bin:/bin:$HOME/.local/bin:/usr/local/sbin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:$HOME/dev/jmeter/bin:$HOME/wed/selenium:$HOME/doom-emacs/bin:$HOME/.local/share/JetBrains/Toolbox/scripts"
 
 export DEVELOPER_KIT_HOME="$HOME/wed/data/ws/developer-kit"
 
@@ -12,6 +12,7 @@ export DEVELOPER_KIT_HOME="$HOME/wed/data/ws/developer-kit"
 #     eval $(gnome-keyring-daemon --start)
 #     export SSH_AUTH_SOCK
 # fi
+export SSH_AUTH_SOCK=/run/user/$(id -u)/keyring/ssh
 
 export SCRIPTS=$HOME/.config/scripts
 export SCANNER=escl:https://192.168.0.14:443
