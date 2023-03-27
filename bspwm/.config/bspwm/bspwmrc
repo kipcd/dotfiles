@@ -74,9 +74,9 @@ fi
 # done
 
 # Just start Emacs
-if ! pgrep emacs ; then
-    bspc desktop --focus ^6 && emacs -l ~/dotfiles/emacs/.emacs.default/autostart-config.el &
-fi
+# if ! pgrep emacs ; then
+#     bspc desktop --focus ^6 && emacs -l ~/dotfiles/emacs/.emacs.default/autostart-config.el &
+# fi
 
 # Start Emacs daemon
 emacs --daemon &
