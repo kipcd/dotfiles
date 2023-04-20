@@ -61,9 +61,10 @@ modules-right = filesystem pulseaudio xkeyboard wlan eth battery date
 
 tray-position = right
 tray-padding = 2
-;tray-background = #0063ff
+tray-detached = false
+tray-background = #0063ff
 
-;wm-restack = bspwm
+wm-restack = bspwm
 
 ;override-redirect = true
 
