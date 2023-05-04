@@ -28,13 +28,13 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a Gimp state=floating follow=on
-bspc rule -a Chromium desktop='^8'
+bspc rule -a Chromium desktop='^3'
 # Selenium Chrome webdriver
-bspc rule -a Chromium-browser desktop='^8'
-bspc rule -a Google-chrome desktop='^7'
+bspc rule -a Chromium-browser desktop='^3'
+bspc rule -a Google-chrome desktop='^2'
 bspc rule -a Emacs state=tiled follow=on
-bspc rule -a Pavucontrol desktop='^5' follow=on
-bspc rule -a Slack desktop='^1' follow=on
+bspc rule -a Pavucontrol desktop='^10' follow=on
+bspc rule -a Slack desktop='^6' follow=on
 
 # A quote of the day one-shot rule
 #bspc rule --add Alacritty --one-shot desktop='^1' state=floating rectangle=760x480+1145+55
