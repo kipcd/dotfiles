@@ -81,6 +81,9 @@ fi
 # Start Emacs daemon
 emacs --daemon &
 
+# Move mouse randomly when idle
+"$HOME"/dotfiles/scripts/mousemover.sh &
+
 # Mount cloud.mail.ru drives
 # if [ -x "$(command -v marcfs)" ]; then
 #     marcfs /home/denis/cloud/cloudmailru &
