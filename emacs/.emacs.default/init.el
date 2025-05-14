@@ -582,7 +582,8 @@
 (use-package yasnippet :config (yas-global-mode))
 
 ;; Java snippets for yasnippet. Unmaintained
-(use-package java-snippets)
+(use-package java-snippets
+  :disabled t)
 
 ;; Convert to/from camelCase/snake_case/kebab-case
 (use-package string-inflection)
@@ -642,6 +643,7 @@
   )
 
 (use-package lsp-mode
+  :disabled t
   ;; :commands (lsp lsp-deferred)
   :hook
   ((lsp-mode . kipcd/lsp-mode-setup)
@@ -680,12 +682,14 @@
 
 ;; LSP UI improvements (sideline with code actions, pop-ups, etc)
 (use-package lsp-ui
+  :disabled t
   ;; :hook (lsp-mode . lsp-ui-mode)
   ;; :custom
   ;; (lsp-ui-doc-position 'bottom) ;; Documentation pop-up frame position
   )
 ;; Project file tree
 (use-package lsp-treemacs
+  :disabled t
   ;; :after lsp-mode
   :config
   ;; Decrease treemacs font size
@@ -699,9 +703,12 @@
   (lsp-treemacs-error-list-current-project-only t "Show errors only from current workspace")
   )
 
-(use-package lsp-ivy)
+(use-package lsp-ivy
+  :disabled t
+  )
 
 (use-package lsp-java
+  :disabled t
   :config
   (setq lsp-java-java-path (substitute-in-file-name "$HOME/.sdkman/candidates/java/11.0.11.hs-adpt/bin/java"))
   (let ((lombok-file (substitute-in-file-name "$HOME/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar")))
@@ -757,10 +764,12 @@
 (add-hook 'java-mode-hook 'kipcd/fill-column-120)
 
 (use-package dap-mode
+  :disabled t
   :after lsp-mode
   :config (dap-auto-configure-mode))
 
 (use-package dap-java
+  :disabled t
   :ensure nil
   :bind
   ("<f5>" . dap-debug)
@@ -773,11 +782,13 @@
 )
 
 ;; Load Java run configurations for dap-java. t inhibits error if file not present
-(require 'wed-dap-templates (substitute-in-file-name "$HOME/wed/wed-dap-templates.el") t)
+;; (require 'wed-dap-templates (substitute-in-file-name "$HOME/wed/wed-dap-templates.el") t)
 
-(use-package helm-lsp)
+(use-package helm-lsp
+  :disabled t)
 
 (use-package helm
+  :disabled t
   :config (helm-mode))
 
 ;; LSP typescript
@@ -789,6 +800,7 @@
 
 ;; Better completion
 (use-package company
+  :disabled t
   ;; :after lsp-mode
   ;; :hook (lsp-mode . company-mode)
   :bind (
