@@ -9,10 +9,14 @@ export DEVELOPER_KIT_HOME="$HOME/wed/data/ws/developer-kit"
 
 # To enable the keyring for applications run through the terminal, such as SSH
 # if [ -n "$DESKTOP_SESSION" ];then
-#     eval $(gnome-keyring-daemon --start)
+#     eval $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
 #     export SSH_AUTH_SOCK
+#     dbus-update-activation-environment --systemd DISPLAY
 # fi
-export SSH_AUTH_SOCK=/run/user/$(id -u)/keyring/ssh
+# eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
+# export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+# export SSH_AUTH_SOCK=/run/user/$(id -u)/keyring/ssh
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
 
 export SCRIPTS=$HOME/.config/scripts
 export SCANNER=escl:https://192.168.0.14:443
