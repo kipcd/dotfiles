@@ -60,6 +60,11 @@ if ! pgrep dropbox ; then
 /usr/bin/dropbox &
 fi
 
+# Launch Flameshot screenshot taker
+if ! pgrep flameshot ; then
+    flameshot
+fi
+
 # Launch polybar status bar
 "$HOME"/.config/polybar/launch.sh
 
