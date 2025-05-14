@@ -62,7 +62,7 @@ fi
 
 # Launch Flameshot screenshot taker
 if ! pgrep flameshot ; then
-    flameshot
+    flameshot &
 fi
 
 # Launch polybar status bar
